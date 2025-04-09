@@ -25,7 +25,7 @@ exports.create = async (req, res) => {
     // Retorna a resposta com os dados da img salva
     res.json({ picture, msg: "Imagem salva com sucesso!" });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     // Caso tenha erro durante o processo, retorna a mensagem ao usuário
     res.status(500).json({ message: "Erro ao salvar!" });
   }
@@ -41,5 +41,20 @@ exports.findAll = async (req, res) => {
   } catch (err) {
     // Caso haja erro durante a busca, retorna mensagem ao usuário
     res.status(500).json({ message: "Erro ao buscar as imagens." });
+  }
+};
+
+// Função para obter uma imagem expecifica
+exports.getImage = async (req, res) => {
+  try {
+    const picture = await Picture.findById(req.params.id);
+
+    if (!picture) {
+      return res.status(404).json({ message: "Imagem não encotrada" });
+    }
+    res.set("Content-Type", picture.contentType);
+    res.send(picture.image);
+  } catch (error) {
+    res.status(500).json({ message: "Erro ao buscar Imagem!" });
   }
 };
