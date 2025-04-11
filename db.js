@@ -16,7 +16,6 @@ async function main() {
   await mongoose.connect(
     `mongodb+srv://${dbUser}:${dbPassword}@cluster-api.r4sn2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster-API`
   );
-
   // Exibe a mensagem ao úsuario que realizou a conexão
   console.log("Conectou ao banco de dados!");
 }

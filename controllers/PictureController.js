@@ -1,8 +1,6 @@
 // Importa o modelo Picture que é a interação do banco de dados
 const Picture = require("../models/Picture");
 
-// Importa o fs para interagir com o sistema de arquivos (Não usado no cod.)
-const fs = require("fs");
 
 // Função para criar uma nova imagem no banco de dados
 exports.create = async (req, res) => {
@@ -16,7 +14,8 @@ exports.create = async (req, res) => {
     // Cria uma nova instância do modelo Picture com o nome da img e caminho
     const picture = new Picture({
       name,
-      src: file.path,
+      image: file.buffer,
+      contentType: file.mimetype,
     });
 
     // Aqui envia para o banco ou seja salva a img no DB
@@ -25,36 +24,43 @@ exports.create = async (req, res) => {
     // Retorna a resposta com os dados da img salva
     res.json({ picture, msg: "Imagem salva com sucesso!" });
   } catch (err) {
-    console.log(err);
     // Caso tenha erro durante o processo, retorna a mensagem ao usuário
     res.status(500).json({ message: "Erro ao salvar!" });
   }
 };
 
-// Função para buscar todas as img no DB
+// Função para encontrar todas as imagens no banco de dados
 exports.findAll = async (req, res) => {
   try {
-    // Busca todas img armazenadas no DB
+    // Busca todas as imagens no banco de dados
     const pictures = await Picture.find();
-    // Retorno todas img encontradas em formato de JSON
-    res.json(pictures);
+
+    // Retorna todas as imagens do DB
+    res.json({ pictures, msg: "Imagens buscadas com sucesso!" });
   } catch (err) {
-    // Caso haja erro durante a busca, retorna mensagem ao usuário
-    res.status(500).json({ message: "Erro ao buscar as imagens." });
+    // Em caso de erro, retorna uma resposta de erro com código 500
+    res.status(500).json({ message: "Erro ao buscar imagens!" });
   }
 };
 
-// Função para obter uma imagem expecifica
+// Função para obter uma imagem especifica
 exports.getImage = async (req, res) => {
   try {
+    // Buscando a img. pelo ID fornecido pelo DB
     const picture = await Picture.findById(req.params.id);
 
+    // Se a img. não for encontrada, retorna erro
     if (!picture) {
-      return res.status(404).json({ message: "Imagem não encotrada" });
+      return res.status(404).json({ message: "Imagem não encontrada!" });
     }
+
+    // Define a resposta para o tipo da imagem
     res.set("Content-Type", picture.contentType);
+
+    // Mostra a imagem na resposta
     res.send(picture.image);
   } catch (error) {
+    // Em caso de erro, retorna erro
     res.status(500).json({ message: "Erro ao buscar Imagem!" });
   }
 };
