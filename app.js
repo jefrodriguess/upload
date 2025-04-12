@@ -14,7 +14,7 @@ require("./db");
 const port = process.env.PORT || 3000;
 
 // Importa o roteador de img. para utilizar as Rotas
-const pictureRouter = require("./routes/picture");
+const pictureRouter = require("./routes/picture");//
 
 // Configurando o CORS
 app.use((req, res, next) => {

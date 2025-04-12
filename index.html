@@ -3,9 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Galeria de fotos - Upload</title>
+    <title>Galeria de Fotos</title>
     <link rel="stylesheet" href="styles.css" />
-    <script src="script.js" defer></script>
   </head>
   <body>
     <div class="container">
@@ -15,23 +14,24 @@
       </header>
       <div id="photoGrid" class="photo-grid"></div>
     </div>
-    <div id="uploadModel" class="modal">
+    <div id="uploadModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Upload de Fotos</h2>
         <form id="uploadForm">
           <div>
-            <label for="name">Nome da foto: </label>
+            <label for="name">Nome da Foto</label>
             <input type="text" id="name" name="name" required />
           </div>
           <div class="form-group">
-            <label for="file">Selecionar Imagens</label>
+            <label for="file">Selecionar imagem</label>
             <input type="file" id="file" accept="image/*" required />
           </div>
-          <buton type="submit" class="btn-primary">Enviar</buton>
+          <button type="submit" class="btn-primary">Enviar</button>
         </form>
       </div>
     </div>
     <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
   </body>
 </html>
