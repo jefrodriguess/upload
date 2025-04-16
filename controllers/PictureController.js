@@ -64,3 +64,25 @@ exports.getImage = async (req, res) => {
     res.status(500).json({ message: "Erro ao buscar Imagem!" });
   }
 };
+
+// Função para excluir imagem 
+// exports.deleteImage = async (req, res) => {
+//   try {
+//     // Buscando a img. pelo ID fornecido pelo DB
+//     const picture = await Picture.findById(req.params.id);
+
+//     // Se a img. não for encontrada, retorna erro
+//     if (!picture) {
+//       return res.status(404).json({ message: "Imagem não encontrada!" });
+//     }
+
+//     // Define a resposta para o tipo da imagem
+//     res.set("Content-Type", picture.contentType);
+
+//     // Mostra a imagem na resposta
+//     res.send(picture.image);
+//   } catch (error) {
+//     // Em caso de erro, retorna erro
+//     res.status(500).json({ message: "Erro ao buscar Imagem!" });
+//   }
+// };

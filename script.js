@@ -8,6 +8,7 @@ const elements = {
   toast: document.getElementById("toast"), // Elemento para notificação
   nameInput: document.getElementById("name"), // Input nome da Foto
   fileInput: document.getElementById("file"), // Input do arquivo da Foto
+  // deletePhotoButton: document.getElementById("deletPhotoBtn") // Botão para excluir a foto
 };
 
 // Configuração da Aplicação (Back-End)
@@ -46,7 +47,7 @@ async function fetchPhotos() {
     // Retorna o Array de fotos ou um vazio
     return data.pictures || [];
   } catch (error) {
-    // Em caso de rro, mostra no console
+    // Em caso de erro, mostra no console
     console.error("Falha ao carregar fotos", error);
     // Função de notificação sendo chamada para mostrar erro ao User
     showNotification("Falha ao carregar fotos", "error");
@@ -87,6 +88,7 @@ function createPhotoCardElement(photo) {
               onerror="this.onerror=null; this.src='${config.placeholderImage}'">
          <div class="photo-info">
              <div class="photo-name">${photo.name}</div>
+         <button id="deletPhotoBtn" class="btn-delete">Excluir</button>
          </div>
          `;
 
@@ -120,6 +122,34 @@ async function uploadNewPhoto(formData) {
   }
 }
 
+
+// Deleta uma foto do servidor 
+
+// async function deletePhoto(formData) {
+//   try {
+//     // Faz requisição POST para API com os dados do formulário
+//     const response = await fetch(config.apiUrl, {
+//       method: "DELETE",
+//     });
+
+//     // Verifca a resposta
+//     if (!response.ok) {
+//       throw new Error("Falha na exlusão da foto");
+//     }
+
+//     // Notificação de sucesso para o User
+//     showNotification("Foto deletada com sucesso!");
+//     loadAndDisplayPhotos(); // Recarrega a lista de fotos (Nova Adição)
+//   } catch (error) {
+//     // Mostrar em caso de erro no console
+//     console.error("Erro na exclusão:", error);
+//     // Notificação de Falha para o User
+//     showNotification("Falha ao excluir foto", "error");
+//   }
+// }
+
+
+
 // Funcões de controle da Interface
 
 // Abre o model de Upload (Mosta a janela de adicionar foto)
@@ -149,7 +179,12 @@ function handleFormSubmit(event) {
   formData.append("name", elements.nameInput.value); // Adiciona o nome da foto
   formData.append("file", elements.fileInput.files[0]); // Adiciona o arquivo selecionado
 
+// Deleta a foto
+
   uploadNewPhoto(formData); // Chama a funçaõ de Upload
+
+  // deletePhoto(formData); // Chama a funçaõ de Upload
+
 }
 
 // Carrega e exibe todas as fotos (Função assíncrona principal)
@@ -168,6 +203,9 @@ function setupEventListeners() {
   window.addEventListener("click", handleOutsideClick);
   // Submit do form. chama a função do upload
   elements.uploadForm.addEventListener("submit", handleFormSubmit);
+
+  // Botão "Excluir", exclui foto
+  // elements.deletePhotoButton.addEventListener("click", );
 }
 
 /* Inicialização da aplicação */
