@@ -127,7 +127,7 @@ async function uploadNewPhoto(formData) {
 
 // async function deletePhoto(formData) {
 //   try {
-//     // Faz requisição POST para API com os dados do formulário
+//     // Faz requisição DELETE para API com os dados do formulário
 //     const response = await fetch(config.apiUrl, {
 //       method: "DELETE",
 //     });
